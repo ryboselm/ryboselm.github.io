@@ -275,6 +275,8 @@ PLATFORMS
 DEPENDENCIES
   github-pages
   jekyll-include-cache
+  jekyll-remote-theme
+  nokogiri (>= 1.12.5)
 
 BUNDLED WITH
    2.2.29
