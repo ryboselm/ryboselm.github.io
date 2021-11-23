@@ -4,10 +4,15 @@
 
 layout: home
 ---
-<div style="width:800px; margin: 0 auto;">
-<img src="/assets/img/nightface.jpg" alt="Ryan Anselm" height="200" width="200" style="border-radius:50%"/>
+<div>
+<img class="center" src="/assets/img/ryananselm.jpg" alt="Ryan Anselm" height="200" width="200" style="border-radius:50%"/>
 </div>
 
-<div style="text-align:center;">
-Hi! I'm Ryan, a sophomore at Columbia University studying CS!
+<div style="text-align:center; text-width:800px; margin: 0 auto;">
+Hi! I am a sophomore at Columbia University studying computer science and minoring in applied mathematics. I have distractingly many interests but lately I'm interested in the applications of machine learning and statistics to better understanding the behavior of complex systems. Nice to meet you!
 </div>
+---
+<div>
+<img class="center" src="/assets/img/wooper.jpg" alt="woopers!" height="300" weight="auto"/>
+</div>
+##### woopers :D
