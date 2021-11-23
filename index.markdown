@@ -4,4 +4,10 @@
 
 layout: home
 ---
-Hi! I'm Ryan, a sophomore at Columbia University studying Computer Science & Applied Math. This is my webpage. As you can see, it's a bit sparse right now. :)
+<div style="width:800px; margin: 0 auto;">
+<img src="/assets/img/nightface.jpg" alt="Ryan Anselm" height="200" width="200" style="border-radius:50%"/>
+</div>
+
+<div style="text-align:center;">
+Hi! I'm Ryan, a sophomore at Columbia University studying CS!
+</div>

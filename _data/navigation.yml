@@ -1,8 +1,11 @@
 
 # main links
 main:
-  - title: "About"
-    url: /about/
+  - title: "Resume"
+    url: /assets/ryananselm_resume.pdf
 
   - title: "Blog"
     url: /blog/
+
+  - title: "Scioly"
+    url: /scioly/
