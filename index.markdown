@@ -9,7 +9,7 @@ layout: home
 </div>
 
 <div style="text-align:center; text-width:800px; margin: 0 auto;">
-Hi! I am a sophomore at Columbia University studying computer science and minoring in applied mathematics. I have distractingly many interests but lately I'm interested in the applications of machine learning and statistics to better understanding the behavior of complex systems. Nice to meet you!
+Hi! I'm Ryan, a sophomore at Columbia University studying computer science with a minor in applied mathematics. Nice to meet you!
 </div>
 ---
 <div>
