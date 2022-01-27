@@ -1,1 +1,1 @@
-made with ###academic theme using Jekyll
+made with the academic theme using Jekyll
