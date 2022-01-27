@@ -1,21 +1,14 @@
 ---
-layout: archive
+layout: default
 ---
-{{ content }}
-<!-- 
-<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
-{% if paginator %}
-  {% assign posts = paginator.posts %}
-{% else %}
-  {% assign posts = site.posts %}
-{% endif %}
+<div class="row g-5 mb-5 align-items-center">
 
-{% assign entries_layout = page.entries_layout | default: 'list' %}
-<div class="entries-{{ entries_layout }}">
-  {% for post in posts %}
-    {% include archive-single.html type=entries_layout %}
-  {% endfor %}
+  <div class="col-md-6">
+    <img class="circ-img" src="{{ site.github.url }}/assets/img/ryan_redtree_sq.jpg" alt="Ryan" width="50%">
+  </div>
+  <div class="col-md-6">
+    {{ content }}
+  </div>
+
 </div>
--->
-{% include paginator.html %}

@@ -1,6 +1,4 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-gem "github-pages", group: :jekyll_plugins
-gem "jekyll-include-cache", group: :jekyll_plugins
-gem "jekyll-remote-theme"
-gem "nokogiri", ">= 1.12.5"
+source "https://rubygems.org"
+gemspec
