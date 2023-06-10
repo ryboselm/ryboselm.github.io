@@ -3,12 +3,12 @@ layout: home
 title: "Home"
 ---
 
-I study computer science, math, and physics at Columbia University. Here are some of the things I do:
+I am a fourth year undergrad studying computer science, math, and physics at Columbia University. A little bit about me:
 
-In high school, I was an avid competitor in [Science Olympiad](https://www.soinc.org/). Recently, I helped create [Columbia University Science Olympiad](https://www.columbiascioly.com/) (CUSO), Columbia's alumni chapter of Science Olympiad. We organize an annual tournament at Columbia for teams of high school students and volunteer at local regional tournaments. I am currently co-president of CUSO.
+[Science Olympiad](https://www.soinc.org/) is a high school extracurricular I competed in which was instrumental in shaping my interests towards science and technology. My eyes were opened to the wonders of physics, chemistry, and geosciences thanks to my participation in Science Olympiad, and I am deeply indebted to this influence! Because of my continued interest in staying involved as an alum, I founded [Columbia University Science Olympiad](https://www.columbiascioly.com/) (CUSO) in 2022 and successfully organized the first ever invitational Science Olympiad tournament at Columbia with 480+ high school students competing in it.
 
-Over the past summer, I worked did machine learning/artificial intelligence and climate science research as a part of Columbia's [LEAP REU](https://leap.columbia.edu/). I worked with neural networks as surrogate models of cloud microphysical process schemes, for eventual incorporation into better, ML-driven global climate models.
+During the summer of 2022, I worked on machine learning and climate science research as a part of Columbia's [LEAP REU](https://leap.columbia.edu/). I worked with neural networks as surrogate models of cloud microphysical process schemes, for eventual incorporation into better, ML-driven global climate models.
 
-In my free time, I love to read and run. Some books I've greatly enjoyed in the past year: [Invisible Cities](https://www.amazon.com/Invisible-Cities-Italo-Calvino/dp/0156453800) by Italo Calvino, [Birth of a Theorem](https://www.amazon.com/Birth-Theorem-Mathematical-C%C3%A9dric-Villani/dp/0374536678) by Cedric Villani, and [Quantum Computing Since Democritus](https://www.amazon.com/Quantum-Computing-since-Democritus-Aaronson/dp/0521199565) by Scott Aaronson.
+I am also an enthusiast for reading and running. Currently reading Moby Dick and training for the San Francisco Marathon. Some of my favorite books: Invisible Cities by Italo Calvino, Collected Fictions by Jorge Luis Borges, and Crying in H-Mart by Michelle Zauner.
 
 ###### Reach me at ryan.anselm@columbia.edu
