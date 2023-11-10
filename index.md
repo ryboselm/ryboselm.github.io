@@ -13,5 +13,7 @@ On campus, I'm involved with [Columbia University Science Olympiad](https://www.
 * [Unsupervised Learning Final Project](assets/Unsupervised_Learning_Final_Report.pdf)
 * [Presentation on Randomized Complexity Classes](assets/Complexity_of_Randomization.pdf)
 
+Want to chat? Email me at: `ryan {dot} anselm {at} columbia {dot} edu`
+
 
 
