@@ -13,11 +13,12 @@ Being a teaching assistant has been a great experience for me. I have TA'd for
 * COMS 3261: Computer Science Theory with Xi Chen (Spring 2023)
 * CSOR 4231: Analysis of Algorithms I with Mihalis Yannakakis (Fall 2022)
 
-#### Miscellaneous Writing
-* [Lecture Notes on Electrical Networks and Graphs](assets/Electrical%20Networks%20and%20Graphs.pdf)
+#### Projects & Writing
+* [A Probabilistic Model for Quantum State Tomography (Probabilistic Machine Learning Final Project)](assets/Probabilistic_Models_Final_Report.pdf)
+* [Lecture Notes on Electrical Networks and Graphs (TCS Reading Group)](assets/Electrical%20Networks%20and%20Graphs.pdf)
 * [k-means++: A Survey (Advanced Algorithms Final Project)](assets/k_means++_A_Survey.pdf)
-* [Unsupervised Learning Final Project](assets/Unsupervised_Learning_Final_Report.pdf)
-* [Presentation on Randomized Complexity Classes](assets/Complexity_of_Randomization.pdf)
+* [Unsupervised Document Retrieval by Contrastive Learning (Unsupervised Learning Final Project)](assets/Unsupervised_Learning_Final_Report.pdf)
+* [Talk on Randomized Complexity (TCS Reading Group)](assets/Complexity_of_Randomization.pdf)
 
 Want to chat? Email me at: `ryan {dot} anselm {at} columbia {dot} edu`
 
