@@ -14,7 +14,7 @@ I have TA'd for
 * CSOR 4231: Analysis of Algorithms I with Mihalis Yannakakis (Fall 2022)
 
 #### Projects & Writing
-* [A Probabilistic Model for Quantum State Tomography (Probabilistic Machine Learning Final Project)](assets/Probabilistic_Models_Final_Report.pdf)
+* [A Probabilistic Model for Quantum State Tomography (Probabilistic Machine Learning Final Project)](https://github.com/ryboselm/QuantumStateTomography)
 * [Lecture Notes on Electrical Networks and Graphs (TCS Reading Group)](assets/Electrical%20Networks%20and%20Graphs.pdf)
 * [k-means++: A Survey (Advanced Algorithms Final Project)](assets/k_means++_A_Survey.pdf)
 * [Unsupervised Document Retrieval by Contrastive Learning (Unsupervised Learning Final Project)](assets/Unsupervised_Learning_Final_Report.pdf)
