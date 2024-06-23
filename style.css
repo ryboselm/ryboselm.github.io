@@ -65,6 +65,20 @@ header {
     min-width: 50%;
 }
 
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-top h1 {
+    margin: 0;
+}
+
+.header-top nav h2 {
+    margin: 0;
+}
+
 #photo {
     max-width: 300px;
     height: auto;
@@ -127,15 +141,11 @@ header {
 }
 
 .blog-link {
-    font-size: 18px;
-    padding: 5px 10px;
-    background-color: #344d8d;
-    color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    color: #344d8d;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .blog-link:hover {
-    background-color: #4a6cc3;
-    border-bottom: none;
+    color: #4a6cc3;
 }
