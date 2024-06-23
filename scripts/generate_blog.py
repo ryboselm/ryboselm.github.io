@@ -54,10 +54,14 @@ def generate_blog_index(posts):
     <body>
         <header>
             <div class="header-content">
-                <h1><a href="../index.html" class="home-link">Ryan Anselm</a></h1>
+                <div class="header-top">
+                    <h1><a href="../" class="home-link">Ryan Anselm</a></h1>
+                </div>
+                <p align="justify">
+                    Welcome to my blog! You can browse my posts below.
+                </p>
             </div>
-            Welcome to my blog! You can browse my posts below.
-            <img id="photo" src="../assets/bear.jpeg" class="center" style="margin:10px 40px" align="right" height="300" width="300">
+            <img id="photo" src="../assets/bear.jpeg" alt="polar bear">
         </header>
         <main>
             <ul class="post-list">
