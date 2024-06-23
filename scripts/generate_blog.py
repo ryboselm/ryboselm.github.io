@@ -16,18 +16,21 @@ def generate_post_html(md_content, title, date):
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{title} | Ryan Anselm</title>
         <link rel="stylesheet" type="text/css" href="../../style.css">
+        <link rel="icon" type="image/x-icon" href="../../assets/favicon.ico">
     </head>
     <body>
         <header>
             <div class="header-content">
-                <h1>{title}</h1><br>
-                <nav>
-                    <a href="../../index.html" class="blog-link">Home</a>
-                    <a href="../index.html" class="blog-link">Blog</a>
-                </nav>
+                <div class="header-top">
+                    <h1><a href="../../" class="home-link">Ryan Anselm</a></h1>
+                    <nav>
+                        <h2><a href="../" class="blog-link">Blog</a></h2>
+                    </nav>
+                </div>
             </div>
-            <p class="post-date">{date}</p>
         </header>
+        <h1 class="blog-title">{title}</h1>
+        <p class="post-date">{date}</p>
         <article>
             {markdown.markdown(md_content)}
         </article>
@@ -38,7 +41,7 @@ def generate_post_html(md_content, title, date):
 
 def generate_blog_index(posts):
     posts_html = "\n".join([
-        f'<li><a href="generated/{post["filename"]}.html">{post["title"]}</a> - '
+        f'<li><a href="generated/{post["filename"]}.html">{post["title"]}</a>'
         f'<span class="post-date">{post["date"]}</span></li>'
         for post in posts
     ])
@@ -50,6 +53,7 @@ def generate_blog_index(posts):
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>blog | Ryan Anselm</title>
         <link rel="stylesheet" type="text/css" href="../style.css">
+        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
     </head>
     <body>
         <header>

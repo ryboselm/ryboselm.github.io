@@ -26,13 +26,7 @@ a:hover {
     border-bottom: 0;
 }
 
-h1 {
-    color: #344d8d;
-}
 
-h2 {
-    color: #344d8d;
-}
 
 .column {
     float: left;
@@ -148,4 +142,11 @@ header {
 
 .blog-link:hover {
     color: #4a6cc3;
+}
+
+.blog-title {
+    color: #232323;
+}
+.subtitle {
+    color: #344d8d;
 }
