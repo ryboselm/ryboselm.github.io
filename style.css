@@ -7,8 +7,8 @@ body
     font-size: 16px; 
     line-height: 1.8; 
     text-shadow: 0 1px 0 #ffffff; 
-    max-width: 60%;
- }
+    max-width: 73%;
+}
 
 code 
 {
@@ -37,7 +37,7 @@ h2 {
 .column {
     float: left;
     width: 50%;
-    }
+}
 
 .bold
 {
@@ -51,12 +51,79 @@ h2 {
     border-bottom: 1px solid #444444;
 }
 
-/* New styles for header and blog link */
-.header-content {
+/* New styles for responsive design */
+header {
     display: flex;
+    flex-direction: row;
+    align-items: flex-start;
     justify-content: space-between;
-    align-items: center;
+    flex-wrap: wrap;
+}
+
+.header-content {
+    flex: 1;
+    min-width: 50%;
+}
+
+#photo {
+    max-width: 300px;
+    height: auto;
+    margin: 0 0 20px 40px;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        max-width: 90%;
+        margin: 5% auto;
+    }
+
+    header {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .header-content {
+        width: 100%;
+        text-align: center;
+    }
+
+    #photo {
+        margin: 0 auto 20px;
+        display: block;
+    }
+}
+
+/* Styles for blog */
+.post-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.post-list li {
     margin-bottom: 20px;
+}
+
+.post-list a {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.post-date {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.home-link {
+    color: #344d8d;
+    text-decoration: none;
+    border-bottom: none;
+    transition: color 0.3s ease;
+}
+
+.home-link:hover {
+    color: #4a6cc3;
 }
 
 .blog-link {
@@ -71,15 +138,4 @@ h2 {
 .blog-link:hover {
     background-color: #4a6cc3;
     border-bottom: none;
-}
-
-.home-link {
-    color: #344d8d;
-    text-decoration: none;
-    border-bottom: none;
-    transition: color 0.3s ease;
-}
-
-.home-link:hover {
-    color: #4a6cc3;
 }
