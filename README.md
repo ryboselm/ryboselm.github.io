@@ -1,1 +1,1 @@
-made with the academic theme using Jekyll
+This is my website

@@ -1,0 +1,152 @@
+body 
+{
+    margin: 5% auto;
+    background: #f8f8f8; 
+    color: #444444; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+    font-size: 16px; 
+    line-height: 1.8; 
+    text-shadow: 0 1px 0 #ffffff; 
+    max-width: 73%;
+}
+
+code 
+{
+    background: white;
+}
+            
+a 
+{
+    border-bottom: 1px solid #444444;
+    color: #444444; 
+    text-decoration: none;
+}
+            
+a:hover {
+    border-bottom: 0;
+}
+
+
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+.bold
+{
+    border-bottom: 0;
+    color: #444444; 
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.bold:hover {
+    border-bottom: 1px solid #444444;
+}
+
+/* New styles for responsive design */
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.header-content {
+    flex: 1;
+    min-width: 50%;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-top h1 {
+    margin: 0;
+}
+
+.header-top nav h2 {
+    margin: 0;
+}
+
+#photo {
+    max-width: 300px;
+    height: auto;
+    margin: 0 0 20px 40px;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        max-width: 90%;
+        margin: 5% auto;
+    }
+
+    header {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .header-content {
+        width: 100%;
+        text-align: center;
+    }
+
+    #photo {
+        margin: 0 auto 20px;
+        display: block;
+    }
+}
+
+/* Styles for blog */
+.post-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.post-list li {
+    margin-bottom: 20px;
+}
+
+.post-list a {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.post-date {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.home-link {
+    color: #344d8d;
+    text-decoration: none;
+    border-bottom: none;
+    transition: color 0.3s ease;
+}
+
+.home-link:hover {
+    color: #4a6cc3;
+}
+
+.blog-link {
+    color: #344d8d;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.blog-link:hover {
+    color: #4a6cc3;
+}
+
+.blog-title {
+    color: #232323;
+}
+.subtitle {
+    color: #344d8d;
+}
