@@ -77,9 +77,10 @@ header {
 }
 
 #photo {
-    max-width: 250px;
+    max-width: 275px;
     height: auto;
     margin: 0 0 20px 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 @media screen and (max-width: 768px) {
