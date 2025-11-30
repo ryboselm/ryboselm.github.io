@@ -153,9 +153,10 @@ header {
 }
 
 .blog-link {
-    color: #344d8d;
+    color: #263867;
     text-decoration: none;
     transition: color 0.3s ease;
+    font-size: 20px;
 }
 
 .blog-link:hover {
