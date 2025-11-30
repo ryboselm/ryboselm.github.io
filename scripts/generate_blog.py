@@ -1,3 +1,4 @@
+import json
 import os
 import markdown
 from datetime import datetime
@@ -40,11 +41,14 @@ def generate_post_html(md_content, title, date):
     return html_template
 
 def generate_blog_index(posts):
-    posts_html = "\n".join([
-        f'<li><a href="generated/{post["filename"]}.html">{post["title"]}</a>'
-        f'<span class="post-date">{post["date"]}</span></li>'
-        for post in posts
-    ])
+    if posts:
+        posts_html = "\n".join([
+            f'<li><a href="generated/{post["filename"]}.html">{post["title"]}</a>'
+            f'<span class="post-date">{post["date"]}</span></li>'
+            for post in posts
+        ])
+    else:
+        posts_html = '<li>No posts yet — check back soon.</li>'
     index_html = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -101,20 +105,34 @@ def main():
             with open(output_path, "w") as f:
                 f.write(html_content)
             
+            post_date = datetime.strptime(date, "%Y-%m-%d")
             posts.append({
                 "filename": os.path.splitext(filename)[0],
                 "title": title,
-                "date": datetime.strptime(date, "%Y-%m-%d").strftime("%B %d, %Y")
+                "date": post_date.strftime("%B %d, %Y"),
+                "iso_date": post_date.strftime("%Y-%m-%d")
             })
-    
+
     # Sort posts by date, most recent first
-    posts.sort(key=lambda x: x["filename"], reverse=True)
+    posts.sort(key=lambda x: x["iso_date"], reverse=True)
     
     # Generate blog index
     index_html = generate_blog_index(posts)
     blog_index_path = os.path.join(WEBSITE_ROOT, "blog", "index.html")
     with open(blog_index_path, "w") as f:
         f.write(index_html)
+
+    posts_json = [
+        {
+            "title": post["title"],
+            "date": post["date"],
+            "url": f"blog/generated/{post['filename']}.html"
+        }
+        for post in posts
+    ]
+    posts_json_path = os.path.join(generated_dir, "posts.json")
+    with open(posts_json_path, "w") as f:
+        json.dump(posts_json, f, indent=4)
 
 if __name__ == "__main__":
     main()

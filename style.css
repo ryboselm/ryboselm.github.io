@@ -127,6 +127,20 @@ header {
     margin-top: 5px;
 }
 
+#blog {
+    margin: 40px 0;
+}
+
+#blog .post-list {
+    margin: 15px 0 0;
+}
+
+#no-posts-message {
+    color: #666;
+    font-size: 14px;
+    margin: 10px 0 0;
+}
+
 .home-link {
     color: #344d8d;
     text-decoration: none;
