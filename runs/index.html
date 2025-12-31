@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0"/>
+        <title>Runs | Ryan Anselm</title>
+        <meta name="description" content="Strava run history and mileage visualizations."/>
+        <link rel="stylesheet" type="text/css" href="../style.css">
+        <link rel="stylesheet" type="text/css" href="runs.css">
+        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <div class="header-content">
+                <div class="header-top">
+                    <h1><a href="../" class="home-link">Ryan Anselm</a></h1>
+                    <nav>
+                        <h2>
+                            <a href="../blog/" class="blog-link">Blog</a>
+                            &nbsp;
+                            <a href="./" class="blog-link">Runs</a>
+                            &nbsp;
+                            <a href="../assets/Ryan Anselm CV.pdf" class="blog-link">CV</a>
+                        </h2>
+                    </nav>
+                </div>
+                <p align="justify">
+                    A running log powered by the Strava API. Drop in your API credentials below and the page will pull
+                    activities, build summary stats, and render a mileage histogram.
+                </p>
+            </div>
+        </header>
+
+        <main class="runs-main">
+            <section class="setup-card">
+                <h2 class="subtitle">Strava connection</h2>
+                <p align="justify">
+                    This page calls a serverless proxy that keeps your Strava credentials private. Configure the
+                    <code>STRAVA_CLIENT_ID</code>, <code>STRAVA_CLIENT_SECRET</code>, and <code>STRAVA_REFRESH_TOKEN</code>
+                    environment variables on your hosting provider (Netlify by default). When hosting the site on GitHub
+                    Pages, set <code>PROXY_ENDPOINT</code> in <code>runs/runs.js</code> to your Netlify function URL so the
+                    browser only talks to the proxy endpoint and your keys stay off the public site.
+                </p>
+                <div class="setup-actions">
+                    <button id="load-data" class="primary-button" type="button">Load Strava data</button>
+                    <button id="clear-cache" class="secondary-button" type="button">Clear cache</button>
+                    <span id="status" class="status-pill">Ready to load Strava data.</span>
+                </div>
+            </section>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <p class="stat-label">Total runs</p>
+                    <p id="stat-total-runs" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Total miles</p>
+                    <p id="stat-total-miles" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Average distance</p>
+                    <p id="stat-average-distance" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Average pace</p>
+                    <p id="stat-average-pace" class="stat-value">--</p>
+                </div>
+            </section>
+
+            <section class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="subtitle">Histogram by mileage</h2>
+                        <p class="chart-subtitle">How your runs distribute across distance buckets.</p>
+                    </div>
+                    <div class="chart-controls">
+                        <label for="bin-size">Bin size</label>
+                        <select id="bin-size">
+                            <option value="0.5">0.5 miles</option>
+                            <option value="1" selected>1 mile</option>
+                            <option value="2">2 miles</option>
+                            <option value="5">5 miles</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="histogram" class="histogram" role="img" aria-label="Histogram of run distance in miles."></div>
+                <p id="histogram-note" class="chart-note">Add Strava data to populate the chart.</p>
+            </section>
+
+            <section class="recent-card">
+                <h2 class="subtitle">Recent runs</h2>
+                <ul id="recent-list" class="recent-list"></ul>
+            </section>
+        </main>
+
+        <script src="runs.js"></script>
+        <script src="../scripts/critter-layer.js"></script>
+    </body>
+</html>
