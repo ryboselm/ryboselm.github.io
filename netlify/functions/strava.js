@@ -5,6 +5,30 @@ const MAX_ACTIVITIES = 2000;
 
 const getEnv = (key) => process.env[key];
 
+const truncateBody = (value, maxLength = 500) => {
+    if (!value || typeof value !== 'string') {
+        return '';
+    }
+    if (value.length <= maxLength) {
+        return value;
+    }
+    return `${value.slice(0, maxLength)}...`;
+};
+
+const readResponseBody = async (response) => {
+    try {
+        const data = await response.json();
+        return truncateBody(JSON.stringify(data));
+    } catch (error) {
+        try {
+            const text = await response.text();
+            return truncateBody(text);
+        } catch (innerError) {
+            return '';
+        }
+    }
+};
+
 let cachedToken = null;
 let cachedExpiresAt = 0;
 const TOKEN_EXPIRY_BUFFER_SECONDS = 120;
@@ -39,7 +63,8 @@ const getAccessToken = async () => {
     });
 
     if (!response.ok) {
-        throw new Error('Unable to refresh Strava access token');
+        const body = await readResponseBody(response);
+        throw new Error(`Strava token refresh failed (${response.status}): ${body || response.statusText}`);
     }
 
     const data = await response.json();
@@ -69,7 +94,8 @@ const fetchActivities = async (accessToken) => {
         );
 
         if (!response.ok) {
-            throw new Error('Unable to fetch activities from Strava');
+            const body = await readResponseBody(response);
+            throw new Error(`Strava activities failed (${response.status}): ${body || response.statusText}`);
         }
 
         const pageData = await response.json();
@@ -127,6 +153,7 @@ exports.handler = async (event) => {
             })
         };
     } catch (error) {
+        console.error('Strava function error:', error);
         return {
             statusCode: 500,
             headers: {
