@@ -12,9 +12,12 @@
     margin: 30px 0 60px;
 }
 
+.runs-page {
+    font-family: 'Space Grotesk', sans-serif;
+}
+
 .setup-card,
 .filter-card,
-.locations-card,
 .chart-card,
 .recent-card {
     background: #ffffff;
@@ -93,6 +96,12 @@
     flex-wrap: wrap;
 }
 
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .filter-card {
     padding: 10px 16px;
     border-radius: 14px;
@@ -113,63 +122,32 @@
     background: #ffffff;
 }
 
+.unit-toggle {
+    display: inline-flex;
+    border: 1px solid var(--runs-border);
+    border-radius: 999px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.unit-toggle button {
+    border: none;
+    background: transparent;
+    padding: 5px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #4a546a;
+}
+
+.unit-toggle button.is-active {
+    background: var(--runs-accent);
+    color: #ffffff;
+}
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
-}
-
-.locations-header {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.locations-card {
-    background: var(--runs-soft);
-    border-color: transparent;
-    box-shadow: none;
-    border-radius: 16px;
-    padding: 16px;
-}
-
-.locations-card .subtitle {
-    margin: 0;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #59637a;
-}
-
-.locations-hint {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #59637a;
-}
-
-.locations-grid {
-    margin-top: 16px;
-    display: grid;
-    gap: 12px;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-}
-
-.location-card {
-    background: #ffffff;
-    padding: 14px 16px;
-    border-radius: 14px;
-}
-
-.location-card .stat-label {
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 13px;
-}
-
-.location-card .stat-value {
-    font-size: 24px;
 }
 
 .stat-card {
@@ -271,11 +249,6 @@
 .recent-meta {
     color: #60697f;
     font-size: 14px;
-}
-
-.recent-location {
-    color: #4f5a70;
-    font-size: 13px;
 }
 
 .recent-description {

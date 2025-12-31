@@ -10,9 +10,9 @@
         <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     </head>
-    <body>
+    <body class="runs-page">
         <header>
             <div class="header-content">
                 <div class="header-top">
@@ -41,10 +41,19 @@
 
             <section class="filter-card">
                 <div class="filter-row">
-                    <span class="filter-label">Year</span>
-                    <select id="year-filter">
-                        <option value="all" selected>All</option>
-                    </select>
+                    <div class="filter-group">
+                        <span class="filter-label">Year</span>
+                        <select id="year-filter">
+                            <option value="all" selected>All</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Units</span>
+                        <div class="unit-toggle" role="group" aria-label="Units">
+                            <button type="button" data-unit="imperial">Mi</button>
+                            <button type="button" data-unit="metric">Km</button>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -54,7 +63,7 @@
                     <p id="stat-total-runs" class="stat-value">--</p>
                 </div>
                 <div class="stat-card">
-                    <p class="stat-label">Total miles</p>
+                    <p class="stat-label" id="stat-total-distance-label">Total distance</p>
                     <p id="stat-total-miles" class="stat-value">--</p>
                 </div>
                 <div class="stat-card">
@@ -65,15 +74,22 @@
                     <p class="stat-label">Average pace</p>
                     <p id="stat-average-pace" class="stat-value">--</p>
                 </div>
-            </section>
-
-            <section class="locations-card">
-                <div class="locations-header">
-                    <h2 class="subtitle">Top locations</h2>
-                    <span class="locations-hint">By run count</span>
+                <div class="stat-card">
+                    <p class="stat-label">Longest run</p>
+                    <p id="stat-longest-run" class="stat-value">--</p>
                 </div>
-                <div id="top-locations" class="locations-grid"></div>
-                <p id="locations-note" class="chart-note">No location data yet.</p>
+                <div class="stat-card">
+                    <p class="stat-label">Fastest pace</p>
+                    <p id="stat-fastest-pace" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Total elevation</p>
+                    <p id="stat-total-elevation" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Avg runs / week</p>
+                    <p id="stat-runs-per-week" class="stat-value">--</p>
+                </div>
             </section>
 
             <section class="chart-card">
