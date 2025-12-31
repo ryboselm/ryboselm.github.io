@@ -80,7 +80,7 @@ const getAccessToken = async () => {
 
 const fetchActivities = async (accessToken) => {
     let page = 1;
-    const perPage = 1000;
+    const perPage = 200;
     const activities = [];
 
     while (activities.length < MAX_ACTIVITIES) {
