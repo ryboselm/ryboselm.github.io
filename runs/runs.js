@@ -1,6 +1,6 @@
 (() => {
     // Update this to your deployed Netlify function URL when using GitHub Pages.
-    const PROXY_ENDPOINT = 'https://YOUR_NETLIFY_SITE.netlify.app/.netlify/functions/strava';
+    const PROXY_ENDPOINT = 'https://benevolent-pony-8b208c.netlify.app/.netlify/functions/strava';
     const CACHE_KEY = 'stravaRunsCache_v1';
     const CACHE_TTL_MS = 1000 * 60 * 15;
 

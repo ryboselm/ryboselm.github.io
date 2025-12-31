@@ -5,7 +5,16 @@ const MAX_ACTIVITIES = 2000;
 
 const getEnv = (key) => process.env[key];
 
+let cachedToken = null;
+let cachedExpiresAt = 0;
+const TOKEN_EXPIRY_BUFFER_SECONDS = 120;
+
 const getAccessToken = async () => {
+    const nowSeconds = Math.floor(Date.now() / 1000);
+    if (cachedToken && cachedExpiresAt - TOKEN_EXPIRY_BUFFER_SECONDS > nowSeconds) {
+        return cachedToken;
+    }
+
     const clientId = getEnv('STRAVA_CLIENT_ID');
     const clientSecret = getEnv('STRAVA_CLIENT_SECRET');
     const refreshToken = getEnv('STRAVA_REFRESH_TOKEN');
@@ -37,6 +46,9 @@ const getAccessToken = async () => {
     if (!data.access_token) {
         throw new Error('Strava token response missing access_token');
     }
+
+    cachedToken = data.access_token;
+    cachedExpiresAt = data.expires_at || nowSeconds + 3600;
 
     return data.access_token;
 };
