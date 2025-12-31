@@ -8,9 +8,12 @@
     const loadButton = document.getElementById('load-data');
     const clearButton = document.getElementById('clear-cache');
     const binSizeSelect = document.getElementById('bin-size');
+    const yearFilterSelect = document.getElementById('year-filter');
     const histogramEl = document.getElementById('histogram');
     const histogramNoteEl = document.getElementById('histogram-note');
     const recentListEl = document.getElementById('recent-list');
+    const topLocationsListEl = document.getElementById('top-locations');
+    const locationsNoteEl = document.getElementById('locations-note');
 
     const statTotalRunsEl = document.getElementById('stat-total-runs');
     const statTotalMilesEl = document.getElementById('stat-total-miles');
@@ -73,6 +76,42 @@
         return `${formatNumber.format(run.distanceMiles)} mi | ${dateLabel}`;
     };
 
+    const formatLocation = (run) => {
+        const city = (run.locationCity || '').trim();
+        const state = (run.locationState || '').trim();
+        const country = (run.locationCountry || '').trim();
+
+        if (city && state) {
+            return `${city}, ${state}`;
+        }
+        if (city && country) {
+            return `${city}, ${country}`;
+        }
+        if (state && country) {
+            return `${state}, ${country}`;
+        }
+        if (city) {
+            return city;
+        }
+        if (state) {
+            return state;
+        }
+        if (country) {
+            return country;
+        }
+        return '';
+    };
+
+    const truncateText = (text, maxLength) => {
+        if (!text) {
+            return '';
+        }
+        if (text.length <= maxLength) {
+            return text;
+        }
+        return `${text.slice(0, maxLength - 3).trimEnd()}...`;
+    };
+
     const updateStats = (summary, hasData) => {
         if (!hasData) {
             statTotalRunsEl.textContent = '--';
@@ -110,8 +149,19 @@
             const meta = document.createElement('div');
             meta.className = 'recent-meta';
             meta.textContent = formatRunMeta(run);
+            const location = formatLocation(run);
+            const locationEl = document.createElement('div');
+            locationEl.className = 'recent-location';
+            locationEl.textContent = location ? location : 'Location hidden';
             item.appendChild(title);
             item.appendChild(meta);
+            item.appendChild(locationEl);
+            if (run.description) {
+                const description = document.createElement('div');
+                description.className = 'recent-description';
+                description.textContent = truncateText(run.description, 140);
+                item.appendChild(description);
+            }
             recentListEl.appendChild(item);
         });
     };
@@ -137,6 +187,83 @@
         return bins;
     };
 
+    const buildTopLocations = (runs, limit = 4) => {
+        const counts = new Map();
+
+        runs.forEach((run) => {
+            const label = formatLocation(run);
+            if (!label) {
+                return;
+            }
+            counts.set(label, (counts.get(label) || 0) + 1);
+        });
+
+        return [...counts.entries()]
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, limit)
+            .map(([label, count]) => ({ label, count }));
+    };
+
+    const updateTopLocations = (runs) => {
+        topLocationsListEl.innerHTML = '';
+        const topLocations = buildTopLocations(runs);
+
+        if (!topLocations.length) {
+            locationsNoteEl.style.display = 'block';
+            locationsNoteEl.textContent = 'No location data yet.';
+            return;
+        }
+
+        locationsNoteEl.style.display = 'none';
+        topLocations.forEach((location) => {
+            const item = document.createElement('div');
+            item.className = 'stat-card location-card';
+            const name = document.createElement('p');
+            name.className = 'stat-label';
+            name.textContent = location.label;
+            const count = document.createElement('p');
+            count.className = 'stat-value';
+            count.textContent = `${formatCount.format(location.count)} runs`;
+            item.appendChild(name);
+            item.appendChild(count);
+            topLocationsListEl.appendChild(item);
+        });
+    };
+
+    const getRunYear = (run) => new Date(run.startDate).getFullYear();
+
+    const getHistogramRuns = (runs) => {
+        const selectedYear = yearFilterSelect.value;
+        if (selectedYear === 'all') {
+            return runs;
+        }
+        return runs.filter((run) => getRunYear(run).toString() === selectedYear);
+    };
+
+    const populateYearFilter = (runs) => {
+        const existingValue = yearFilterSelect.value;
+        const years = [...new Set(runs.map((run) => getRunYear(run)))]
+            .filter((year) => Number.isFinite(year))
+            .sort((a, b) => b - a);
+
+        yearFilterSelect.innerHTML = '';
+        const allOption = document.createElement('option');
+        allOption.value = 'all';
+        allOption.textContent = 'All';
+        yearFilterSelect.appendChild(allOption);
+
+        years.forEach((year) => {
+            const option = document.createElement('option');
+            option.value = year.toString();
+            option.textContent = year.toString();
+            yearFilterSelect.appendChild(option);
+        });
+
+        if (existingValue && [...yearFilterSelect.options].some((opt) => opt.value === existingValue)) {
+            yearFilterSelect.value = existingValue;
+        }
+    };
+
     const createSvgElement = (tag, attributes = {}) => {
         const svgElement = document.createElementNS('http://www.w3.org/2000/svg', tag);
         Object.entries(attributes).forEach(([key, value]) => {
@@ -153,8 +280,14 @@
             return;
         }
 
+        const filteredRuns = getHistogramRuns(runs);
+        if (!filteredRuns.length) {
+            histogramNoteEl.textContent = 'No runs found for this year.';
+            return;
+        }
+
         const binSize = parseFloat(binSizeSelect.value);
-        const bins = buildHistogramBins(runs, binSize);
+        const bins = buildHistogramBins(filteredRuns, binSize);
         const maxCount = Math.max(...bins.map((bin) => bin.count), 1);
 
         const width = 800;
@@ -193,6 +326,8 @@
 
         const slotWidth = innerWidth / bins.length;
         const barWidth = Math.max(8, slotWidth - 6);
+        const minLabelSpacing = 44;
+        const labelStep = Math.max(1, Math.ceil(minLabelSpacing / slotWidth));
 
         bins.forEach((bin, index) => {
             const barHeight = (bin.count / maxCount) * innerHeight;
@@ -209,7 +344,6 @@
             });
             svg.appendChild(rect);
 
-            const labelStep = bins.length <= 12 ? 1 : bins.length <= 24 ? 2 : 3;
             if (index % labelStep === 0) {
                 const label = createSvgElement('text', {
                     x: x + barWidth / 2,
@@ -244,13 +378,16 @@
         svg.appendChild(yAxis);
 
         histogramEl.appendChild(svg);
-        histogramNoteEl.textContent = `${formatCount.format(runs.length)} runs across ${bins.length} bins.`;
+        histogramNoteEl.textContent = `${formatCount.format(filteredRuns.length)} runs across ${bins.length} bins.`;
     };
 
     const renderDashboard = (runs) => {
         currentRuns = runs;
-        const summary = computeSummary(runs);
+        populateYearFilter(runs);
+        const filteredRuns = getHistogramRuns(runs);
+        const summary = computeSummary(filteredRuns);
         updateStats(summary, runs.length > 0);
+        updateTopLocations(filteredRuns);
         updateRecentRuns(runs);
         renderHistogram(runs);
     };
@@ -330,6 +467,14 @@
     });
 
     binSizeSelect.addEventListener('change', () => {
+        renderHistogram(currentRuns);
+    });
+
+    yearFilterSelect.addEventListener('change', () => {
+        const filteredRuns = getHistogramRuns(currentRuns);
+        const summary = computeSummary(filteredRuns);
+        updateStats(summary, currentRuns.length > 0);
+        updateTopLocations(filteredRuns);
         renderHistogram(currentRuns);
     });
 

@@ -13,6 +13,8 @@
 }
 
 .setup-card,
+.filter-card,
+.locations-card,
 .chart-card,
 .recent-card {
     background: #ffffff;
@@ -83,10 +85,91 @@
     color: #7f2a2a;
 }
 
+.filter-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filter-card {
+    padding: 10px 16px;
+    border-radius: 14px;
+}
+
+.filter-label {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #59637a;
+}
+
+.filter-row select {
+    border-radius: 999px;
+    border: 1px solid var(--runs-border);
+    padding: 5px 12px;
+    font-size: 13px;
+    background: #ffffff;
+}
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
+}
+
+.locations-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.locations-card {
+    background: var(--runs-soft);
+    border-color: transparent;
+    box-shadow: none;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.locations-card .subtitle {
+    margin: 0;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #59637a;
+}
+
+.locations-hint {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #59637a;
+}
+
+.locations-grid {
+    margin-top: 16px;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+
+.location-card {
+    background: #ffffff;
+    padding: 14px 16px;
+    border-radius: 14px;
+}
+
+.location-card .stat-label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+}
+
+.location-card .stat-value {
+    font-size: 24px;
 }
 
 .stat-card {
@@ -188,6 +271,18 @@
 .recent-meta {
     color: #60697f;
     font-size: 14px;
+}
+
+.recent-location {
+    color: #4f5a70;
+    font-size: 13px;
+}
+
+.recent-description {
+    margin-top: 4px;
+    color: #4c566b;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 @media screen and (max-width: 900px) {

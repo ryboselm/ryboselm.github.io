@@ -90,6 +90,10 @@ const normalizeRuns = (activities) => activities
     .map((activity) => ({
         id: activity.id,
         name: activity.name || 'Untitled Run',
+        description: activity.description || '',
+        locationCity: activity.location_city || '',
+        locationState: activity.location_state || '',
+        locationCountry: activity.location_country || '',
         distanceMiles: (activity.distance || 0) * METER_TO_MILE,
         movingTime: activity.moving_time || 0,
         startDate: activity.start_date,
