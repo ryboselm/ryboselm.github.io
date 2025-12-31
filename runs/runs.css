@@ -16,7 +16,6 @@
     font-family: 'Space Grotesk', sans-serif;
 }
 
-.setup-card,
 .filter-card,
 .chart-card,
 .recent-card {
@@ -25,44 +24,6 @@
     border-radius: 18px;
     padding: 22px 24px;
     box-shadow: 0 10px 25px rgba(38, 56, 103, 0.08);
-}
-
-.setup-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px;
-    margin-top: 16px;
-}
-
-.primary-button,
-.secondary-button {
-    border-radius: 999px;
-    padding: 8px 18px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 1px solid transparent;
-}
-
-.primary-button {
-    background: var(--runs-accent);
-    color: #ffffff;
-}
-
-.primary-button:hover {
-    background: #263867;
-}
-
-.secondary-button {
-    background: #ffffff;
-    border-color: var(--runs-border);
-    color: var(--runs-dark);
-}
-
-.secondary-button:hover {
-    border-color: var(--runs-accent);
-    color: var(--runs-accent);
 }
 
 .status-pill {
@@ -94,6 +55,10 @@
     justify-content: flex-start;
     gap: 12px;
     flex-wrap: wrap;
+}
+
+.filter-status {
+    margin-left: auto;
 }
 
 .filter-group {

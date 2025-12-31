@@ -19,21 +19,12 @@
                     <h1><a href="../" class="home-link">Ryan Anselm</a></h1>
                 </div>
                 <p align="justify">
-                    My personal Strava Wrapped. All credit for making this goes to GPT-5.2-Codex.
+                    My personal “Strava Wrapped". Made with the help of GPT-5.2-Codex.
                 </p>
             </div>
         </header>
 
         <main class="runs-main">
-            <section class="setup-card">
-                <h2 class="subtitle">Strava connection</h2>
-                <div class="setup-actions">
-                    <button id="load-data" class="primary-button" type="button">Load Strava data</button>
-                    <button id="clear-cache" class="secondary-button" type="button">Clear cache</button>
-                    <span id="status" class="status-pill">Ready to load Strava data.</span>
-                </div>
-            </section>
-
             <section class="filter-card">
                 <div class="filter-row">
                     <div class="filter-group">
@@ -49,6 +40,7 @@
                             <button type="button" data-unit="metric">Km</button>
                         </div>
                     </div>
+                    <span id="status" class="status-pill filter-status">Loading Strava data...</span>
                 </div>
             </section>
 

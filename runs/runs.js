@@ -27,8 +27,6 @@
     };
 
     const statusEl = document.getElementById('status');
-    const loadButton = document.getElementById('load-data');
-    const clearButton = document.getElementById('clear-cache');
     const binSizeSelect = document.getElementById('bin-size');
     const binSizeLabel = document.querySelector('label[for="bin-size"]');
     const yearFilterSelect = document.getElementById('year-filter');
@@ -526,21 +524,16 @@
         }
     };
 
-    const clearCache = () => {
-        localStorage.removeItem(CACHE_KEY);
-    };
-
-    const loadData = async ({ preferCache }) => {
-        const cachedRuns = preferCache ? loadCache() : null;
+    const loadData = async () => {
+        const cachedRuns = loadCache();
         if (cachedRuns) {
             renderDashboard(cachedRuns);
             setStatus('Loaded cached data.', 'success');
-            if (preferCache) {
-                return;
-            }
+            return;
         }
 
-        setStatus('Fetching Strava activities...', 'loading');
+        renderDashboard([]);
+        setStatus('Loading Strava data...', 'loading');
 
         try {
             const response = await fetch(PROXY_ENDPOINT);
@@ -556,21 +549,11 @@
             }
             saveCache(data.runs);
             renderDashboard(data.runs);
-            setStatus('Strava data loaded.', 'success');
+            setStatus('Strava data updated.', 'success');
         } catch (error) {
             setStatus(error.message || 'Something went wrong loading Strava data.', 'error');
         }
     };
-
-    loadButton.addEventListener('click', () => {
-        loadData({ preferCache: false });
-    });
-
-    clearButton.addEventListener('click', () => {
-        clearCache();
-        renderDashboard([]);
-        setStatus('Cache cleared.', 'success');
-    });
 
     binSizeSelect.addEventListener('change', () => {
         renderHistogram(currentRuns);
@@ -593,12 +576,5 @@
     updateUnitButtons();
     updateBinOptions(false);
 
-    renderDashboard([]);
-    const cachedRuns = loadCache();
-    if (cachedRuns) {
-        renderDashboard(cachedRuns);
-        setStatus('Loaded cached data.', 'success');
-    } else {
-        setStatus('Ready to load Strava data.', null);
-    }
+    loadData();
 })();
