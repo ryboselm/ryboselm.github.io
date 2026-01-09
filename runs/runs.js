@@ -391,7 +391,7 @@
             role: 'presentation'
         });
 
-        const gridCount = 8;
+        const gridCount = Math.min(maxCount, 8);
         for (let i = 0; i <= gridCount; i += 1) {
             const y = padding.top + innerHeight - (innerHeight * (i / gridCount));
             const line = createSvgElement('line', {
