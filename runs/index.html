@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0"/>
+        <title>Runs | Ryan Anselm</title>
+        <meta name="description" content="Strava run history and mileage visualizations."/>
+        <link rel="stylesheet" type="text/css" href="../style.css">
+        <link rel="stylesheet" type="text/css" href="runs.css">
+        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body class="runs-page">
+        <header>
+            <div class="header-content">
+                <div class="header-top">
+                    <h1><a href="../" class="home-link">Ryan Anselm</a></h1>
+                </div>
+                <p align="justify">
+                    My personal “Strava Wrapped". Made with the help of GPT-5.2-Codex.
+                </p>
+            </div>
+        </header>
+
+        <main class="runs-main">
+            <section class="filter-card">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <span class="filter-label">Year</span>
+                        <select id="year-filter">
+                            <option value="all" selected>All</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Units</span>
+                        <div class="unit-toggle" role="group" aria-label="Units">
+                            <button type="button" data-unit="imperial">Mi</button>
+                            <button type="button" data-unit="metric">Km</button>
+                        </div>
+                    </div>
+                    <span id="status" class="status-pill filter-status">Loading Strava data...</span>
+                </div>
+            </section>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <p class="stat-label">Total runs</p>
+                    <p id="stat-total-runs" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label" id="stat-total-distance-label">Total distance</p>
+                    <p id="stat-total-miles" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Average distance</p>
+                    <p id="stat-average-distance" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Average pace</p>
+                    <p id="stat-average-pace" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Longest run</p>
+                    <p id="stat-longest-run" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Fastest pace</p>
+                    <p id="stat-fastest-pace" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Total elevation</p>
+                    <p id="stat-total-elevation" class="stat-value">--</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Avg runs / week</p>
+                    <p id="stat-runs-per-week" class="stat-value">--</p>
+                </div>
+            </section>
+
+            <section class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="subtitle">Histogram by mileage</h2>
+                        <p class="chart-subtitle">How your runs distribute across distance buckets.</p>
+                    </div>
+                    <div class="chart-controls">
+                        <label for="bin-size">Bin size</label>
+                        <select id="bin-size">
+                            <option value="0.5">0.5 miles</option>
+                            <option value="1" selected>1 mile</option>
+                            <option value="2">2 miles</option>
+                            <option value="5">5 miles</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="histogram" class="histogram" role="img" aria-label="Histogram of run distance in miles."></div>
+                <p id="histogram-note" class="chart-note">Add Strava data to populate the chart.</p>
+            </section>
+
+            <section class="recent-card">
+                <h2 class="subtitle">Recent runs</h2>
+                <ul id="recent-list" class="recent-list"></ul>
+            </section>
+        </main>
+
+        <script src="runs.js"></script>
+    </body>
+</html>

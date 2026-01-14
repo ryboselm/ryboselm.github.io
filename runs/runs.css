@@ -1,0 +1,245 @@
+:root {
+    --runs-accent: #344d8d;
+    --runs-soft: #eef1f7;
+    --runs-border: #d2d7e1;
+    --runs-dark: #1f2638;
+}
+
+.runs-main {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: 30px 0 60px;
+}
+
+.runs-page {
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.filter-card,
+.chart-card,
+.recent-card {
+    background: #ffffff;
+    border: 1px solid var(--runs-border);
+    border-radius: 18px;
+    padding: 22px 24px;
+    box-shadow: 0 10px 25px rgba(38, 56, 103, 0.08);
+}
+
+.status-pill {
+    background: var(--runs-soft);
+    color: var(--runs-dark);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px;
+}
+
+.status-pill.is-loading {
+    background: #fff3d6;
+    color: #6b4d12;
+}
+
+.status-pill.is-success {
+    background: #dff3e6;
+    color: #1e5c32;
+}
+
+.status-pill.is-error {
+    background: #fde1e1;
+    color: #7f2a2a;
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filter-status {
+    margin-left: auto;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-card {
+    padding: 10px 16px;
+    border-radius: 14px;
+}
+
+.filter-label {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #59637a;
+}
+
+.filter-row select {
+    border-radius: 999px;
+    border: 1px solid var(--runs-border);
+    padding: 5px 12px;
+    font-size: 13px;
+    background: #ffffff;
+}
+
+.unit-toggle {
+    display: inline-flex;
+    border: 1px solid var(--runs-border);
+    border-radius: 999px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.unit-toggle button {
+    border: none;
+    background: transparent;
+    padding: 5px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #4a546a;
+}
+
+.unit-toggle button.is-active {
+    background: var(--runs-accent);
+    color: #ffffff;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.stat-card {
+    background: var(--runs-soft);
+    border-radius: 16px;
+    padding: 16px;
+    min-height: 90px;
+}
+
+.stat-label {
+    margin: 0 0 6px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #59637a;
+}
+
+.stat-value {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--runs-dark);
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.chart-subtitle {
+    margin: 6px 0 0;
+    color: #5b677f;
+}
+
+.chart-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chart-controls label {
+    font-size: 14px;
+    color: #4a546a;
+}
+
+.chart-controls select {
+    border-radius: 8px;
+    border: 1px solid var(--runs-border);
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+.histogram {
+    margin-top: 20px;
+    background: linear-gradient(180deg, #f7f8fc 0%, #ffffff 100%);
+    border-radius: 16px;
+    border: 1px solid var(--runs-border);
+    padding: 16px;
+    min-height: 300px;
+}
+
+.histogram svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.chart-note {
+    margin: 10px 0 0;
+    color: #6a738a;
+    font-size: 14px;
+}
+
+.recent-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+    display: grid;
+    gap: 12px;
+}
+
+.recent-list li {
+    border-bottom: 1px solid var(--runs-border);
+    padding-bottom: 10px;
+}
+
+.recent-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.recent-title {
+    font-weight: 600;
+}
+
+.recent-meta {
+    color: #60697f;
+    font-size: 14px;
+}
+
+.recent-description {
+    margin-top: 4px;
+    color: #4c566b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+@media screen and (max-width: 900px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-header {
+        align-items: flex-start;
+    }
+
+    .setup-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
