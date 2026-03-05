@@ -1,9 +1,14 @@
+const { getStore } = require('@netlify/blobs');
+
 const API_BASE = 'https://www.strava.com/api/v3';
 const RUN_TYPES = new Set(['Run', 'TrailRun', 'VirtualRun']);
 const METER_TO_MILE = 0.000621371;
 const MAX_ACTIVITIES = 2000;
+const RUNS_CACHE_TTL_MS = 1000 * 60 * 30;
+const RUNS_CACHE_KEY = 'runs_payload_v1';
 
 const getEnv = (key) => process.env[key];
+const runsCacheStore = getStore('strava-cache');
 
 const truncateBody = (value, maxLength = 500) => {
     if (!value || typeof value !== 'string') {
@@ -32,6 +37,35 @@ const readResponseBody = async (response) => {
 let cachedToken = null;
 let cachedExpiresAt = 0;
 const TOKEN_EXPIRY_BUFFER_SECONDS = 120;
+let cachedRunsPayload = null;
+let cachedRunsExpiresAt = 0;
+
+const readPersistentCache = async () => {
+    try {
+        const record = await runsCacheStore.get(RUNS_CACHE_KEY, { type: 'json' });
+        if (!record || !record.payload || !record.expiresAt) {
+            return null;
+        }
+        if (Date.now() >= record.expiresAt) {
+            return null;
+        }
+        return record.payload;
+    } catch (error) {
+        console.error('Strava cache read error:', error);
+        return null;
+    }
+};
+
+const writePersistentCache = async (payload, expiresAt) => {
+    try {
+        await runsCacheStore.setJSON(RUNS_CACHE_KEY, {
+            payload,
+            expiresAt
+        });
+    } catch (error) {
+        console.error('Strava cache write error:', error);
+    }
+};
 
 const getAccessToken = async () => {
     const nowSeconds = Math.floor(Date.now() / 1000);
@@ -136,9 +170,46 @@ exports.handler = async (event) => {
     }
 
     try {
+        const now = Date.now();
+        if (cachedRunsPayload && now < cachedRunsExpiresAt) {
+            return {
+                statusCode: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cache-Control': 'public, max-age=300',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(cachedRunsPayload)
+            };
+        }
+
+        const persistentPayload = await readPersistentCache();
+        if (persistentPayload) {
+            cachedRunsPayload = persistentPayload;
+            cachedRunsExpiresAt = now + RUNS_CACHE_TTL_MS;
+            return {
+                statusCode: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cache-Control': 'public, max-age=300',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(persistentPayload)
+            };
+        }
+
         const accessToken = await getAccessToken();
         const activities = await fetchActivities(accessToken);
         const runs = normalizeRuns(activities);
+        const payload = {
+            runs,
+            updatedAt: new Date().toISOString()
+        };
+        const expiresAt = now + RUNS_CACHE_TTL_MS;
+
+        cachedRunsPayload = payload;
+        cachedRunsExpiresAt = expiresAt;
+        await writePersistentCache(payload, expiresAt);
 
         return {
             statusCode: 200,
@@ -147,10 +218,7 @@ exports.handler = async (event) => {
                 'Cache-Control': 'public, max-age=300',
                 'Access-Control-Allow-Origin': '*'
             },
-            body: JSON.stringify({
-                runs,
-                updatedAt: new Date().toISOString()
-            })
+            body: JSON.stringify(payload)
         };
     } catch (error) {
         console.error('Strava function error:', error);
