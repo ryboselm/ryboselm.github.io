@@ -1,7 +1,7 @@
 (() => {
     // Update this to your deployed Netlify function URL when using GitHub Pages.
     const PROXY_ENDPOINT = 'https://benevolent-pony-8b208c.netlify.app/.netlify/functions/strava';
-    const CACHE_KEY = 'stravaRunsCache_v1';
+    const CACHE_KEY = 'stravaRunsCache_v2';
     const CACHE_TTL_MS = 1000 * 60 * 15;
     const UNIT_STORAGE_KEY = 'stravaRunsUnit_v1';
     const PACE_FLOOR_SECONDS_PER_MILE = 223; // 3:43 / mi
@@ -496,12 +496,38 @@
         renderHistogram(runs);
     };
 
-    const saveCache = (runs) => {
-        const payload = {
+    const formatUpdatedAt = (updatedAt) => {
+        if (!updatedAt) {
+            return null;
+        }
+
+        const date = new Date(updatedAt);
+        if (!Number.isFinite(date.getTime())) {
+            return null;
+        }
+
+        return date.toLocaleString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit'
+        });
+    };
+
+    const buildLoadedStatus = (updatedAt) => {
+        const updatedLabel = formatUpdatedAt(updatedAt);
+        return updatedLabel
+            ? `Updated ${updatedLabel}.`
+            : 'Loaded cached data.';
+    };
+
+    const saveCache = ({ runs, updatedAt }) => {
+        const cachePayload = {
             timestamp: Date.now(),
-            runs
+            runs,
+            updatedAt
         };
-        localStorage.setItem(CACHE_KEY, JSON.stringify(payload));
+        localStorage.setItem(CACHE_KEY, JSON.stringify(cachePayload));
     };
 
     const loadCache = () => {
@@ -518,17 +544,20 @@
             if (Date.now() - parsed.timestamp > CACHE_TTL_MS) {
                 return null;
             }
-            return parsed.runs;
+            return {
+                runs: parsed.runs,
+                updatedAt: parsed.updatedAt || null
+            };
         } catch (error) {
             return null;
         }
     };
 
     const loadData = async () => {
-        const cachedRuns = loadCache();
-        if (cachedRuns) {
-            renderDashboard(cachedRuns);
-            setStatus('Loaded cached data.', 'success');
+        const cachedPayload = loadCache();
+        if (cachedPayload) {
+            renderDashboard(cachedPayload.runs);
+            setStatus(buildLoadedStatus(cachedPayload.updatedAt), 'success');
             return;
         }
 
@@ -547,9 +576,13 @@
             if (!data || !Array.isArray(data.runs)) {
                 throw new Error('Strava proxy response missing runs');
             }
-            saveCache(data.runs);
+            const payload = {
+                runs: data.runs,
+                updatedAt: data.updatedAt || null
+            };
+            saveCache(payload);
             renderDashboard(data.runs);
-            setStatus('Strava data updated.', 'success');
+            setStatus(buildLoadedStatus(data.updatedAt), 'success');
         } catch (error) {
             setStatus(error.message || 'Something went wrong loading Strava data.', 'error');
         }
