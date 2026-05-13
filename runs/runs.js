@@ -566,10 +566,10 @@
 
         try {
             const response = await fetch(PROXY_ENDPOINT);
+            const data = await response.json().catch(() => null);
             if (!response.ok) {
-                throw new Error('Unable to fetch Strava data');
+                throw new Error(data?.error || 'Unable to fetch Strava data');
             }
-            const data = await response.json();
             if (data && data.error) {
                 throw new Error(data.error);
             }

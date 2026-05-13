@@ -1,4 +1,5 @@
 const {
+    connectBlobs,
     readCachedRuns,
     refreshRunsCache
 } = require('../lib/strava-cache');
@@ -18,6 +19,8 @@ exports.handler = async (event) => {
     }
 
     try {
+        await connectBlobs(event);
+
         let payload = await readCachedRuns();
         let source = 'cache';
 

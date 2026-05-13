@@ -1,7 +1,12 @@
-const { refreshRunsCache } = require('../lib/strava-cache');
+const {
+    connectBlobs,
+    refreshRunsCache
+} = require('../lib/strava-cache');
 
-exports.handler = async () => {
+exports.handler = async (event) => {
     try {
+        await connectBlobs(event);
+
         const payload = await refreshRunsCache();
         console.log(`Refreshed Strava cache with ${payload.runs.length} runs at ${payload.updatedAt}`);
 

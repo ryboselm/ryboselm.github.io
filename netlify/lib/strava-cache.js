@@ -125,6 +125,15 @@ const normalizeRuns = (activities) => activities
         elevationGain: activity.total_elevation_gain || 0
     }));
 
+const connectBlobs = async (event) => {
+    if (!event || !event.blobs) {
+        return;
+    }
+
+    const { connectLambda } = await import('@netlify/blobs');
+    connectLambda(event);
+};
+
 const getCacheStore = async () => {
     const { getStore } = await import('@netlify/blobs');
     return getStore(CACHE_STORE);
@@ -165,6 +174,7 @@ const refreshRunsCache = async () => {
 };
 
 module.exports = {
+    connectBlobs,
     fetchFreshRuns,
     readCachedRuns,
     refreshRunsCache,

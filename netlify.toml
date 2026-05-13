@@ -3,5 +3,5 @@
   functions = "netlify/functions"
 
 [functions."refresh-strava-cache"]
-  # Netlify cron schedules run in UTC; 04:00 UTC is midnight Eastern during daylight saving time.
+  # Netlify cron schedules run in UTC; 05:00 UTC is midnight Central during daylight saving time.
   schedule = "0 5 * * *"
