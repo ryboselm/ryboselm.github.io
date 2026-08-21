@@ -24,17 +24,13 @@ const createEmptyDatabase = () => ({
 
 const getRunsStore = async () => {
     const { getStore } = await import('@netlify/blobs');
-    return getStore({
-        name: STORE_NAME,
-        consistency: 'strong'
-    });
+    return getStore(STORE_NAME);
 };
 
 const readRunsDatabase = async () => {
     const store = await getRunsStore();
     const database = await store.get(DATABASE_KEY, {
-        type: 'json',
-        consistency: 'strong'
+        type: 'json'
     });
 
     if (!database) {

@@ -14,6 +14,15 @@ const jsonHeaders = {
     'Access-Control-Allow-Origin': '*'
 };
 
+const readOptionalSource = async (label, reader) => {
+    try {
+        return await reader();
+    } catch (error) {
+        console.error(`${label} read failed; continuing with available run data:`, error);
+        return null;
+    }
+};
+
 exports.handler = async (event) => {
     if (event.httpMethod !== 'GET') {
         return {
@@ -26,11 +35,13 @@ exports.handler = async (event) => {
     try {
         await connectBlobs(event);
 
-        const database = await readRunsDatabase();
-        const cachedPayload = await readCachedRuns();
+        const [database, cachedPayload] = await Promise.all([
+            readOptionalSource('Runs database', readRunsDatabase),
+            readOptionalSource('Legacy Strava cache', readCachedRuns)
+        ]);
         let payload;
 
-        if (database.runs.length > 0) {
+        if (database && database.runs.length > 0) {
             const cachedRuns = cachedPayload ? cachedPayload.runs : [];
             const { runs } = mergeRunCollections(database.runs, cachedRuns);
 
