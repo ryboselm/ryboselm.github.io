@@ -122,6 +122,7 @@ const normalizeRuns = (activities) => activities
         distanceMiles: (activity.distance || 0) * METER_TO_MILE,
         movingTime: activity.moving_time || 0,
         startDate: activity.start_date,
+        localDate: (activity.start_date_local || activity.start_date || '').slice(0, 10),
         elevationGain: activity.total_elevation_gain || 0
     }));
 

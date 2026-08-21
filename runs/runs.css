@@ -12,13 +12,17 @@
     margin: 30px 0 60px;
 }
 
+.runs-main > * {
+    min-width: 0;
+}
+
 .runs-page {
     font-family: 'Space Grotesk', sans-serif;
+    max-width: min(1100px, 90%);
 }
 
 .filter-card,
-.chart-card,
-.recent-card {
+.chart-card {
     background: #ffffff;
     border: 1px solid var(--runs-border);
     border-radius: 18px;
@@ -145,9 +149,25 @@
     flex-wrap: wrap;
 }
 
-.chart-subtitle {
-    margin: 6px 0 0;
-    color: #5b677f;
+.chart-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.chart-period {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    border-radius: 999px;
+    padding: 2px 11px;
+    background: var(--runs-soft);
+    color: #4f5a70;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 
 .chart-controls {
@@ -177,50 +197,143 @@
     min-height: 300px;
 }
 
-.histogram svg {
+.histogram svg,
+.weekly-mileage svg {
     width: 100%;
-    height: 100%;
+    height: auto;
     display: block;
+}
+
+.run-calendar {
+    margin-top: 20px;
+    overflow-x: auto;
+    padding: 4px 2px 8px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 3px;
+    width: max-content;
+    min-width: 100%;
+}
+
+.calendar-month,
+.calendar-weekday {
+    color: #657087;
+    font-size: 11px;
+    line-height: 12px;
+    white-space: nowrap;
+}
+
+.calendar-month {
+    align-self: end;
+}
+
+.calendar-weekday {
+    padding-right: 5px;
+    text-align: right;
+}
+
+.calendar-day {
+    width: 12px;
+    height: 12px;
+    border: 1px solid rgba(31, 38, 56, 0.06);
+    border-radius: 3px;
+    background: #edf0f5;
+    box-sizing: border-box;
+}
+
+.calendar-day[data-level="1"] {
+    background: #cbd7f2;
+}
+
+.calendar-day[data-level="2"] {
+    background: #94aadd;
+}
+
+.calendar-day[data-level="3"] {
+    background: #617bbb;
+}
+
+.calendar-day[data-level="4"] {
+    background: var(--runs-accent);
+}
+
+.calendar-day.is-outside {
+    background: transparent;
+    border-color: transparent;
+}
+
+.calendar-day:focus-visible {
+    outline: 2px solid var(--runs-dark);
+    outline-offset: 1px;
+}
+
+.calendar-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-top: 12px;
+    color: #657087;
+    font-size: 11px;
+}
+
+.calendar-legend-swatch {
+    width: 12px;
+    height: 12px;
+    border: 1px solid rgba(31, 38, 56, 0.06);
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.calendar-legend-swatch[data-level="0"] {
+    background: #edf0f5;
+}
+
+.calendar-legend-swatch[data-level="1"] {
+    background: #cbd7f2;
+}
+
+.calendar-legend-swatch[data-level="2"] {
+    background: #94aadd;
+}
+
+.calendar-legend-swatch[data-level="3"] {
+    background: #617bbb;
+}
+
+.calendar-legend-swatch[data-level="4"] {
+    background: var(--runs-accent);
+}
+
+.weekly-mileage {
+    margin-top: 20px;
+    overflow-x: auto;
+    background: linear-gradient(180deg, #f7f8fc 0%, #ffffff 100%);
+    border: 1px solid var(--runs-border);
+    border-radius: 16px;
+    padding: 16px;
+    min-height: 280px;
+}
+
+.weekly-mileage svg {
+    min-width: 720px;
+}
+
+.chart-empty {
+    display: grid;
+    min-height: 246px;
+    place-items: center;
+    color: #6a738a;
+    font-size: 14px;
 }
 
 .chart-note {
     margin: 10px 0 0;
     color: #6a738a;
     font-size: 14px;
-}
-
-.recent-list {
-    list-style: none;
-    padding: 0;
-    margin: 16px 0 0;
-    display: grid;
-    gap: 12px;
-}
-
-.recent-list li {
-    border-bottom: 1px solid var(--runs-border);
-    padding-bottom: 10px;
-}
-
-.recent-list li:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.recent-title {
-    font-weight: 600;
-}
-
-.recent-meta {
-    color: #60697f;
-    font-size: 14px;
-}
-
-.recent-description {
-    margin-top: 4px;
-    color: #4c566b;
-    font-size: 14px;
-    line-height: 1.6;
 }
 
 @media screen and (max-width: 900px) {
@@ -236,6 +349,14 @@
 
     .chart-header {
         align-items: flex-start;
+    }
+
+    .chart-header-actions {
+        align-items: flex-start;
+    }
+
+    .chart-card {
+        padding: 18px 16px;
     }
 
     .setup-actions {

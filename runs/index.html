@@ -18,9 +18,6 @@
                 <div class="header-top">
                     <h1><a href="../" class="home-link">Ryan Anselm</a></h1>
                 </div>
-                <p align="justify">
-                    My personal “Strava Wrapped".
-                </p>
             </div>
         </header>
 
@@ -42,6 +39,28 @@
                     </div>
                     <span id="status" class="status-pill filter-status">Loading Strava data...</span>
                 </div>
+            </section>
+
+            <section class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="subtitle">Run calendar</h2>
+                    </div>
+                    <span id="run-calendar-period" class="chart-period">Last 12 months</span>
+                </div>
+                <div id="run-calendar" class="run-calendar" role="img" aria-label="Calendar heatmap of daily running mileage."></div>
+                <p id="run-calendar-note" class="chart-note">Awaiting run data to populate the calendar.</p>
+            </section>
+
+            <section class="chart-card">
+                <div class="chart-header">
+                    <div>
+                        <h2 class="subtitle">Weekly mileage</h2>
+                    </div>
+                    <span id="weekly-mileage-period" class="chart-period">Last 12 months</span>
+                </div>
+                <div id="weekly-mileage" class="weekly-mileage" role="img" aria-label="Bar chart of weekly running mileage."></div>
+                <p id="weekly-mileage-note" class="chart-note">Awaiting run data to populate the chart.</p>
             </section>
 
             <section class="stats-grid">
@@ -83,25 +102,22 @@
                 <div class="chart-header">
                     <div>
                         <h2 class="subtitle">Histogram by mileage</h2>
-                        <p class="chart-subtitle">How runs distribute across distance buckets.</p>
                     </div>
-                    <div class="chart-controls">
-                        <label for="bin-size">Bin size</label>
-                        <select id="bin-size">
-                            <option value="0.5">0.5 miles</option>
-                            <option value="1" selected>1 mile</option>
-                            <option value="2">2 miles</option>
-                            <option value="5">5 miles</option>
-                        </select>
+                    <div class="chart-header-actions">
+                        <span id="histogram-period" class="chart-period">All years</span>
+                        <div class="chart-controls">
+                            <label for="bin-size">Bin size</label>
+                            <select id="bin-size">
+                                <option value="0.5">0.5 miles</option>
+                                <option value="1" selected>1 mile</option>
+                                <option value="2">2 miles</option>
+                                <option value="5">5 miles</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div id="histogram" class="histogram" role="img" aria-label="Histogram of run distance in miles."></div>
                 <p id="histogram-note" class="chart-note">Awaiting Strava data to populate the chart.</p>
-            </section>
-
-            <section class="recent-card">
-                <h2 class="subtitle">Recent runs</h2>
-                <ul id="recent-list" class="recent-list"></ul>
             </section>
         </main>
 

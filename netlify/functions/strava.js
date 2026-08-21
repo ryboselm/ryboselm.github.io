@@ -3,6 +3,11 @@ const {
     readCachedRuns,
     refreshRunsCache
 } = require('../lib/strava-cache');
+const {
+    mergeRunCollections,
+    readRunsDatabase
+} = require('../lib/runs-store');
+const { createPublicRunsPayload } = require('../lib/public-runs');
 
 const jsonHeaders = {
     'Content-Type': 'application/json',
@@ -21,31 +26,40 @@ exports.handler = async (event) => {
     try {
         await connectBlobs(event);
 
-        let payload = await readCachedRuns();
-        let source = 'cache';
+        const database = await readRunsDatabase();
+        const cachedPayload = await readCachedRuns();
+        let payload;
 
-        if (!payload) {
+        if (database.runs.length > 0) {
+            const cachedRuns = cachedPayload ? cachedPayload.runs : [];
+            const { runs } = mergeRunCollections(database.runs, cachedRuns);
+
+            payload = {
+                runs,
+                updatedAt: database.updatedAt || (cachedPayload && cachedPayload.updatedAt)
+            };
+        } else if (cachedPayload) {
+            payload = cachedPayload;
+        } else {
             payload = await refreshRunsCache();
-            source = 'strava';
         }
+
+        const publicPayload = createPublicRunsPayload(payload);
 
         return {
             statusCode: 200,
             headers: {
                 ...jsonHeaders,
-                'Cache-Control': 'public, max-age=300, stale-while-revalidate=86400'
+                'Cache-Control': 'public, max-age=60, must-revalidate'
             },
-            body: JSON.stringify({
-                ...payload,
-                source
-            })
+            body: JSON.stringify(publicPayload)
         };
     } catch (error) {
         console.error('Strava function error:', error);
         return {
             statusCode: 500,
             headers: jsonHeaders,
-            body: JSON.stringify({ error: error.message || 'Unexpected error' })
+            body: JSON.stringify({ error: 'Unable to load run data' })
         };
     }
 };
