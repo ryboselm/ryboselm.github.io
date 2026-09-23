@@ -6,12 +6,20 @@
         <title>Ryan Anselm</title>
         <meta name="description" content="Ryan Anselm's personal website"/>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="waves.css">
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     </head>
-    <body>
+    <body class="home-page">
+        <div class="waves-background" id="waves-background" aria-hidden="true">
+            <video id="waves-video" data-src="assets/video/aerial-surf.mp4" preload="none" muted loop playsinline disablepictureinpicture disableremoteplayback tabindex="-1"></video>
+        </div>
+        <button class="waves-toggle" id="waves-toggle" type="button" aria-label="Ocean waves background" aria-pressed="false" title="Turn on ocean waves" hidden>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 15c4 0 4-9 10-9a5 5 0 0 1 5 5c-1-2-4-2-4 0 0 3 5 5 9 4"/>
+                <path d="M2 19c2 0 3-1.5 5-1.5S10 19 12 19s3-1.5 5-1.5 3 1.5 5 1.5"/>
+            </svg>
+        </button>
+        <p class="waves-status" id="waves-status" role="status"></p>
         <header>
             <div class="header-content">
                 <div class="header-top">
@@ -38,21 +46,7 @@
                 </p>
             </div>
             <img id="photo" src="assets/me.jpeg" alt="Ryan Anselm">
-               
-            
         </header>
-
-        <!-- <section id="blog">
-            <h2 class="subtitle">Blog</h2>
-            <p align="justify">
-                This is where I'd put my blog, if I had one.
-            </p>
-            <ul class="post-list" id="recent-posts"></ul>
-            <p id="no-posts-message">No posts yet — check back soon.</p>
-            <p>
-                <a href="blog/" class="blog-link">View all posts →</a>
-            </p>
-        </section> -->
 
         <h2 class="subtitle">Teaching</h2>
         I have been a teaching assistant for:
@@ -78,46 +72,6 @@
             <b>Email: </b> ryan [dot] anselm [at] utexas [dot] edu
         </p>
 
-        <script src="scripts/critter-layer.js"></script>
-
-        <script>
-            const postsList = document.getElementById('recent-posts');
-            const noPostsMessage = document.getElementById('no-posts-message');
-
-            fetch('blog/generated/posts.json')
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then((posts) => {
-                    if (!Array.isArray(posts) || posts.length === 0) {
-                        return;
-                    }
-
-                    noPostsMessage.style.display = 'none';
-                    posts.slice(0, 3).forEach((post) => {
-                        const listItem = document.createElement('li');
-
-                        const link = document.createElement('a');
-                        link.href = post.url;
-                        link.textContent = post.title;
-                        listItem.appendChild(link);
-
-                        if (post.date) {
-                            const dateSpan = document.createElement('span');
-                            dateSpan.className = 'post-date';
-                            dateSpan.textContent = post.date;
-                            listItem.appendChild(dateSpan);
-                        }
-
-                        postsList.appendChild(listItem);
-                    });
-                })
-                .catch(() => {
-                    noPostsMessage.textContent = 'Unable to load posts right now. Please try again later.';
-                });
-        </script>
+        <script src="scripts/waves-background.js"></script>
     </body>
 </html>
