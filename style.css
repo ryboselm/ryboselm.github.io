@@ -185,3 +185,35 @@ header {
     opacity: 0.25;
     filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.12));
 }
+
+.paper-list {
+  list-style: none;
+  padding: 0;
+  max-width: 650px;
+}
+
+.paper-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.paper-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+}
+
+.paper-title a {
+  color: #0f3756;
+  text-decoration: none;
+}
+
+.paper-title a:hover {
+  text-decoration: underline;
+}
+
+.paper-authors {
+  margin: 0 0 0.5rem 0;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
